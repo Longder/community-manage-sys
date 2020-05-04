@@ -47,19 +47,6 @@
                 <label>邮箱</label>
                 <input name="email" type="email" class="form-control" placeholder="请输入邮箱"/>
             </div>
-            <div class="form-group">
-                <label>手机号</label>
-                <input name="phone" type="text" class="form-control" placeholder="请输入手机号"/>
-            </div>
-            <div class="form-group">
-                <label>角色</label>
-                <div class="form-group">
-                    <label class="checkbox-inline i-checks">
-                        <input name="role" type="radio" value="ROLE_STAFF" checked>家政服务人员</label>
-                    <label class="checkbox-inline i-checks">
-                        <input name="role" type="radio" value="ROLE_EMPLOYER">雇主</label>
-                </div>
-            </div>
             <button type="submit" class="btn btn-primary block full-width m-b">注 册</button>
             <p class="text-muted text-center">
                 <small>已经有账户了？</small>

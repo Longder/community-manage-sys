@@ -35,4 +35,12 @@ public class Appointment extends BaseIdEntity{
     @Column(name = "server_state_")
     private ServerState serverState;
 
+    /**
+     * 是否已评论
+     * true 已评论
+     * false 未评论
+     */
+    @Column(name = "commented_")
+    private Boolean commented;
+
 }

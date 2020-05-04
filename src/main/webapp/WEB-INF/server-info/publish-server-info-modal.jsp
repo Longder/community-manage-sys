@@ -8,7 +8,7 @@
                 <span aria-hidden="true">×</span>
                 <span class="sr-only">Close</span>
             </button>
-            <h4 class="modal-title">编辑用户信息</h4>
+            <h4 class="modal-title">发布服务信息</h4>
         </div>
         <small class="font-bold">
             <div class="modal-body">
@@ -16,40 +16,43 @@
                     <div class="col-sm-12">
                         <div class="ibox float-e-margins">
                             <div class="ibox-content">
-                                <form id="edit-user-form" method="post" class="form-horizontal"
-                                      action="${ctx}/admin/user/edit">
-                                    <input type="hidden" name="id" value="${user.id}"/>
-                                    <div class="hr-line-dashed"></div>
+                                <form id="add-server-info-form" method="post" class="form-horizontal"
+                                      action="${ctx}/admin/serverInfo/publish">
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label">登录名<span
-                                                class="text-danger">*</span></label>
+                                        <label class="col-sm-2 control-label">服务标题<span class="text-danger">*</span></label>
                                         <div class="col-sm-10">
-                                            <input type="text" readonly class="form-control"
-                                                   value="${user.loginName}"/>
+                                            <input type="text" class="form-control" name="title"/>
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label">姓名<span
-                                                class="text-danger">*</span></label>
+                                        <label class="col-sm-2 control-label">服务人员<span class="text-danger">*</span></label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="name"
-                                                   value="${user.name}"/>
+                                            <input type="text" class="form-control" name="personName"/>
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label">邮箱<span
-                                                class="text-danger">*</span></label>
+                                        <label class="col-sm-2 control-label">服务类型<span class="text-danger">*</span></label>
                                         <div class="col-sm-10">
-                                            <input type="email" class="form-control" name="email"
-                                                   value="${user.email}"/>
+                                            <select class="form-control" name="serverType">
+                                                <c:forEach items="${serverTypes}" var="serverType">
+                                                    <option value="${serverType.name}">${serverType.displayName}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">服务描述<span class="text-danger">*</span></label>
+                                        <div class="col-sm-10">
+                                            <textarea type="text" class="form-control" name="description"></textarea>
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
                                     <div class="form-group">
                                         <div class="col-sm-4 col-sm-offset-2">
-                                            <button class="btn btn-primary" type="submit">确定修改</button>
+                                            <button class="btn btn-primary" type="submit">保存</button>
                                             <button class="btn btn-white" type="button" data-dismiss="modal">取消</button>
                                         </div>
                                     </div>
@@ -63,34 +66,28 @@
     </div>
 </div>
 <script>
-
-    //自定义手机号码验证
-    jQuery.validator.addMethod("isMobile", function(value, element) {
-        var length = value.length;
-        var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
-        return this.optional(element) || (length == 11 && mobile.test(value));
-    }, "请正确填写手机号码");
-
     $(function(){
-        console.log("modal加载完毕");
-        $("#edit-user-form").validate({
+        //表单验证
+        $("#add-server-info-form").validate({
             rules:{
-                phone:{
-                    "required" :true,
-                    "isMobile" : true
+                title:{
+                    required :true
                 },
-                email:{
+                personName:{
                     required:true,
-                    email:true
+                },
+                description:{
+                    required:true
                 }
             },messages:{
-                phone:{
-                    "required" :"请输入手机号",
-                    "isMobile" : "请输入正确手机号"
+                title:{
+                    required :"请输入服务标题"
                 },
-                email:{
-                    required:"请输入邮箱",
-                    email:"邮箱格式不正确"
+                personName:{
+                    required:"请填写服务人员姓名",
+                },
+                description:{
+                    required:"请输入服务内容"
                 }
             },
             onfocusout:false
