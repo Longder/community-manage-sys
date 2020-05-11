@@ -117,6 +117,11 @@
                     <li class="J_tabCloseOther"><a>关闭其他</a>
                     </li>
                 </ul>
+                <a id="changePasswordButton" type="button" class="roll-nav roll-right J_tabExit" data-toggle="modal"
+                   data-target="#editPasswordModal"
+                   onclick="openModal('${ctx}/admin/toEditPasswordForAdmin?','editPasswordModal')">
+                    修改密码
+                </a>
             </div>
             <a href="${ctx}/logout" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
         </div>
@@ -133,6 +138,7 @@
     </div>
     <!--右侧部分结束-->
 </div>
+<div class="modal inmodal fade" id="editPasswordModal" tabindex="-1" role="dialog" aria-hidden="true"></div>
 <jsp:include page="${ctx}/WEB-INF/import/script.jsp"/>
 </body>
 </html>

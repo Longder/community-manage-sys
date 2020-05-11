@@ -40,6 +40,8 @@
                         <th>姓名</th>
                         <th>角色</th>
                         <th>邮箱</th>
+                        <th>电话</th>
+                        <th>门牌号</th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -53,6 +55,8 @@
                                 <span class="label ${user.role.label}">${user.role.displayName}</span>
                             </td>
                             <td>${user.email}</td>
+                            <td>${user.phone}</td>
+                            <td>${user.houseNo}</td>
                             <td>
                                 <c:if test="${user.role.name!='ROLE_ADMIN'}">
                                     <button type="button" class="btn btn-sm btn-warning" data-toggle="modal"
@@ -60,6 +64,17 @@
                                             onclick="openModal('${ctx}/admin/user/toEdit?userId=${user.id}','userModal')">
                                         修改
                                     </button>
+                                    <a onclick="return confirm('确定注销该用户吗？所有关联信息将被删除')" href="${ctx}/admin/user/cancelUser?userId=${user.id}" type="button" class="btn btn-sm btn-danger">
+                                        注销
+                                    </a>
+                                </c:if>
+                                <c:if test="${user.role.name == 'ROLE_ADMIN'}">
+                                    <button type="button" class="btn btn-sm btn-default" data-toggle="modal"
+                                            data-target="#userModal"
+                                            onclick="openModal('${ctx}/admin/user/toEditAdmin?userId=${user.id}','userModal')">
+                                        修改管理员信息
+                                    </button>
+
                                 </c:if>
                             </td>
                         </tr>

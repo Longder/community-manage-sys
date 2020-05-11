@@ -70,11 +70,19 @@
                                     </c:choose>
                                 </td>
                                 <td>
+                                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+                                            data-target="#serverInfoModal"
+                                            onclick="openModal('${ctx}/admin/serverInfo/toEdit?serverInfoId=${serverInfo.id}','serverInfoModal')">
+                                        修改
+                                    </button>
                                     <button type="button" class="btn btn-sm btn-warning" data-toggle="modal"
                                             data-target="#serverInfoModal"
                                             onclick="openModal('${ctx}/admin/comment/showComment?serverInfoId=${serverInfo.id}','serverInfoModal')">
                                         查看评论
                                     </button>
+                                    <a href="${ctx}/admin/serverInfo/remove?serverInfoId=${serverInfo.id}" type="button" class="btn btn-sm btn-danger" onclick="return confirm('确定删除该服务信息吗？')">
+                                        删除
+                                    </a>
                                 </td>
                             </tr>
                         </c:forEach>

@@ -1,10 +1,8 @@
 package com.example.community.service.impl;
 
-import com.example.community.entity.po.SysRole;
-import com.example.community.entity.po.SysUser;
-import com.example.community.entity.po.SysUserRole;
-import com.example.community.repository.SysUserRepository;
-import com.example.community.repository.SysUserRoleRepository;
+import com.example.community.entity.po.*;
+import com.example.community.repository.*;
+import com.example.community.security.SecurityUtil;
 import com.example.community.service.UserManageService;
 import com.example.community.util.EncryptionUtil;
 import org.springframework.stereotype.Service;
@@ -21,6 +19,14 @@ public class UserManageServiceImpl implements UserManageService {
     private SysUserRepository sysUserRepository;
     @Resource
     private SysUserRoleRepository sysUserRoleRepository;
+    @Resource
+    private AppointmentRepository appointmentRepository;
+    @Resource
+    private OrderDetailRepository orderDetailRepository;
+    @Resource
+    private ServerCommentRepository serverCommentRepository;
+    @Resource
+    private ShoppingCartDetailRepository shoppingCartDetailRepository;
 
     /**
      * 查询所有用户
@@ -65,10 +71,12 @@ public class UserManageServiceImpl implements UserManageService {
             //存角色
             sysUserRoleRepository.save(userRole);
         }else{
-            //修改，只修改email和真是姓名
+            //修改，只修改email、真实姓名、手机号和门牌号
             SysUser dbUser = sysUserRepository.findById(sysUser.getId()).orElseThrow(RuntimeException::new);
             dbUser.setName(sysUser.getName());
             dbUser.setEmail(sysUser.getEmail());
+            dbUser.setHouseNo(sysUser.getHouseNo());
+            dbUser.setPhone(sysUser.getPhone());
             sysUserRepository.save(dbUser);
         }
     }
@@ -82,5 +90,43 @@ public class UserManageServiceImpl implements UserManageService {
     @Override
     public SysUser getOneUser(Long userId) {
         return sysUserRepository.findById(userId).orElseThrow(RuntimeException::new);
+    }
+
+    /**
+     * 修改密码
+     *
+     * @param newPassword
+     */
+    @Override
+    @Transactional
+    public void changePassword(String newPassword) {
+        SysUser sysUser = SecurityUtil.getCurrentUser();
+        assert sysUser != null;
+        sysUser.setPassword(EncryptionUtil.encrypt(newPassword.trim()));
+        sysUserRepository.save(sysUser);
+    }
+
+    /**
+     * 注销一个用户，关联信息全部删除
+     *
+     * @param userId
+     */
+    @Override
+    @Transactional
+    public void cancelOneUser(Long userId) {
+        //预约信息 appointment
+        List<Appointment> appointmentList = appointmentRepository.listByEmployerId(userId);
+        appointmentRepository.deleteInBatch(appointmentList);
+        //订单  orderDetail
+        List<OrderDetail> orderDetailList = orderDetailRepository.listByBuyerId(userId);
+        orderDetailRepository.deleteInBatch(orderDetailList);
+        //服务评价 ServerComment
+        List<ServerComment> serverCommentList = serverCommentRepository.listByEmpId(userId);
+        serverCommentRepository.deleteInBatch(serverCommentList);
+        //购物车详情 ShoppingCartDetail
+        List<ShoppingCartDetail> shoppingCartDetailList = shoppingCartDetailRepository.listByBuyerId(userId);
+        shoppingCartDetailRepository.deleteInBatch(shoppingCartDetailList);
+        //用户
+        sysUserRepository.deleteById(userId);
     }
 }

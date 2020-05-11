@@ -20,4 +20,11 @@ public interface AppointmentRepository extends JpaRepository<Appointment,Long> {
     @Query("select a from Appointment a where a.employer.id = :employerId")
     List<Appointment> listByEmployerId(@Param("employerId") Long employerId);
 
+    /**
+     * 根据服务信息id查询预约
+     * @return
+     */
+    @Query("select a from Appointment a where a.serverInfo.id = :serverInfoId")
+    List<Appointment> listByServerInfoId(@Param("serverInfoId") Long serverInfoId);
+
 }

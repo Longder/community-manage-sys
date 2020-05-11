@@ -47,6 +47,14 @@
                 <label>邮箱</label>
                 <input name="email" type="email" class="form-control" placeholder="请输入邮箱"/>
             </div>
+            <div class="form-group">
+                <label>联系电话</label>
+                <input name="phone" type="text" class="form-control" placeholder="请输入联系电话"/>
+            </div>
+            <div class="form-group">
+                <label>门牌号</label>
+                <input name="houseNo" type="text" class="form-control" placeholder="请输入门牌号"/>
+            </div>
             <button type="submit" class="btn btn-primary block full-width m-b">注 册</button>
             <p class="text-muted text-center">
                 <small>已经有账户了？</small>
@@ -110,7 +118,10 @@
                     "required" :true,
                     "isMobile" : true
                 },
-                password:"required",
+                password:{
+                    "required":true,
+                    minlength: 6
+                },
                 passwordAgain:{
                     required:true,
                     equalTo:"#password"
@@ -118,6 +129,9 @@
                 email:{
                     required:true,
                     email:true
+                },
+                houseNo:{
+                    required:true
                 }
             },messages:{
                 name:"请输入真实姓名",
@@ -129,7 +143,10 @@
                     "required" :"请输入手机号",
                     "isMobile" : "请输入正确手机号"
                 },
-                password:"请输入密码",
+                password:{
+                    required:"请输入密码",
+                    minlength:"密码必须六位以上"
+                },
                 passwordAgain:{
                     required:"请确认密码",
                     equalTo:"两次输入的密码不同"
@@ -137,6 +154,9 @@
                 email:{
                     required:"请输入邮箱",
                     email:"邮箱格式不正确"
+                },
+                houseNo:{
+                    required:"请输入门牌号"
                 }
             },
             onfocusout:false

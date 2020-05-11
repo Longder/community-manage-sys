@@ -57,4 +57,38 @@ public class ServerInfoManageController {
         return "redirect:/admin/serverInfo/listAllServerInfo";
     }
 
+    /**
+     * 去编辑服务信息
+     * @param serverInfoId
+     * @return
+     */
+    @GetMapping("/toEdit")
+    public String toEditServerInfo(Long serverInfoId,Model model){
+        model.addAttribute("serverInfo",serverInfoManageService.getOneServerInfo(serverInfoId));
+        model.addAttribute("serverTypes", ServerType.values());
+        return "server-info/edit-server-info-modal";
+    }
+
+    /**
+     * 编辑服务信息
+     * @param serverInfo
+     * @return
+     */
+    @PostMapping("/edit")
+    public String editServerInfo(ServerInfo serverInfo){
+        serverInfoManageService.editOneServerInfo(serverInfo);
+        return "redirect:/admin/serverInfo/listAllServerInfo";
+    }
+
+    /**
+     * 移除服务信息
+     * @param serverInfoId
+     * @return
+     */
+    @GetMapping("/remove")
+    public String removeServerInfo(Long serverInfoId){
+        serverInfoManageService.removeOneServerInfo(serverInfoId);
+        return "redirect:/admin/serverInfo/listAllServerInfo";
+    }
+
 }

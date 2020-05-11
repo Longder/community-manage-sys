@@ -5,8 +5,8 @@ package com.example.community.entity.enums;
  */
 public enum ServerType {
     HOUSE_KEEPING("HOUSE_KEEPING","家政服务","label-success"),
-    UNLOCKING("UNLOCKING","开锁服务","label-success"),
-    MAINTAIN("MAINTAIN","维修服务","label-success"),;
+    UNLOCKING("UNLOCKING","开锁服务","label-primary"),
+    MAINTAIN("MAINTAIN","维修服务","label-warning"),;
     /**
      * 名称
      */

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Objects;
 
 @Slf4j
 @Controller
@@ -76,6 +77,9 @@ public class MainController {
             String role = securityContext.getAuthentication().getAuthorities().iterator().next().getAuthority();
             model.addAttribute("role",role);
         }
+        //封装管理员信息
+        SysUser admin = userManageService.getOneUser(1L);
+        model.addAttribute("admin",admin);
     }
 
     /**
@@ -149,4 +153,37 @@ public class MainController {
     }
 
 
+    /**
+     * 普通用户去修改密码，跳页面
+     * @return
+     */
+    @GetMapping("/admin/toEditPasswordForUser")
+    public String toEditPasswordForUser(Model model,HttpServletRequest request){
+        this.fillCurrentUser(model,request);
+        log.debug("去修改密码弹框");
+        return "edit-password";
+    }
+
+
+    /**
+     * 普通用户，去修改个人信息
+     * @return
+     */
+    @GetMapping("/admin/toEditSelfInfoForUser")
+    public String toEditSelfInfoForUser(Model model,HttpServletRequest request){
+        this.fillCurrentUser(model,request);
+        //重新查一下user的信息
+        SysUser user = userManageService.getOneUser(Objects.requireNonNull(SecurityUtil.getCurrentUser()).getId());
+        model.addAttribute("user",user);
+        return "self-info";
+    }
+
+    /**
+     * 管理员修改密码
+     * @return
+     */
+    @GetMapping("/admin/toEditPasswordForAdmin")
+    public String toEditPasswordForAdmin(){
+        return "user/edit-password-modal";
+    }
 }

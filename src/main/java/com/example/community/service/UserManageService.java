@@ -35,4 +35,16 @@ public interface UserManageService {
      * @return 用户对象
      */
     SysUser getOneUser(Long userId);
+
+    /**
+     * 修改密码
+     * @param newPassword
+     */
+    void changePassword(String newPassword);
+
+    /**
+     * 注销一个用户，关联信息全部删除
+     * @param userId
+     */
+    void cancelOneUser(Long userId);
 }

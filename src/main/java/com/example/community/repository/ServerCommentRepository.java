@@ -20,4 +20,12 @@ public interface ServerCommentRepository extends JpaRepository<ServerComment,Lon
      */
     @Query("SELECT C FROM ServerComment C where C.serverInfo.id = :serverInfoId")
     List<ServerComment> listByServerInfoId(@Param("serverInfoId") Long serverInfoId);
+
+    /**
+     * 根据雇主id查询
+     * @param empId
+     * @return
+     */
+    @Query("SELECT C FROM ServerComment C where C.employer.id = :empId")
+    List<ServerComment> listByEmpId(@Param("empId")Long empId);
 }

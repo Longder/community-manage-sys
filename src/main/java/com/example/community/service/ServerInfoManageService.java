@@ -22,11 +22,23 @@ public interface ServerInfoManageService {
      */
     void publishOneServerInfo(ServerInfo serverInfo);
 
+
     /**
-     * 查看未预约的服务信息
+     * 查询获取一个服务信息
+     * @param serverInfoId
      * @return
      */
-    List<ServerInfo> listServerInfoNotAppoint();
-
     ServerInfo getOneServerInfo(Long serverInfoId);
+
+    /**
+     * 编辑一个服务信息
+     * @param serverInfo
+     */
+    void editOneServerInfo(ServerInfo serverInfo);
+
+    /**
+     * 删除一个服务信息
+     * @param serverInfoId
+     */
+    void removeOneServerInfo(Long serverInfoId);
 }

@@ -47,11 +47,18 @@ public class SysUser extends BaseIdEntity implements UserDetails {
      */
     @Column(name = "create_date")
     private LocalDate createDate;
+
     /**
-     * 是否是会员
+     * 门牌号
      */
-    @Column(name = "member_")
-    private Boolean member;
+    @Column(name = "house_no_")
+    private String houseNo;
+
+    /**
+     * 电话
+     */
+    @Column(name = "phone_")
+    private String phone;
 
     /**
      * 角色，单个，展示用

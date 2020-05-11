@@ -20,6 +20,13 @@ public interface ShoppingCartDetailRepository extends JpaRepository<ShoppingCart
     List<ShoppingCartDetail> listByBuyer(@Param("buyer") SysUser buyer);
 
     /**
+     * 根据买方id查询
+     * @return
+     */
+    @Query("select d from ShoppingCartDetail d where d.buyer.id = :buyerId")
+    List<ShoppingCartDetail> listByBuyerId(@Param("buyerId")Long buyerId);
+
+    /**
      * 根据买家，商品，查询唯一的一条购物车详情
      */
     @Query("select d from ShoppingCartDetail d where d.buyer=:buyer and d.goods=:goods")

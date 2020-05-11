@@ -8,7 +8,7 @@
                 <span aria-hidden="true">×</span>
                 <span class="sr-only">Close</span>
             </button>
-            <h4 class="modal-title">编辑用户信息</h4>
+            <h4 class="modal-title">编辑管理员信息</h4>
         </div>
         <small class="font-bold">
             <div class="modal-body">
@@ -17,7 +17,7 @@
                         <div class="ibox float-e-margins">
                             <div class="ibox-content">
                                 <form id="edit-user-form" method="post" class="form-horizontal"
-                                      action="${ctx}/admin/user/editForUse">
+                                      action="${ctx}/admin/user/edit">
                                     <input type="hidden" name="id" value="${user.id}"/>
                                     <div class="hr-line-dashed"></div>
                                     <div class="form-group">
@@ -26,15 +26,6 @@
                                         <div class="col-sm-10">
                                             <input type="text" readonly class="form-control"
                                                    value="${user.loginName}"/>
-                                        </div>
-                                    </div>
-                                    <div class="hr-line-dashed"></div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">姓名<span
-                                                class="text-danger">*</span></label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="name"
-                                                   value="${user.name}"/>
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
@@ -53,15 +44,6 @@
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" name="phone"
                                                    value="${user.phone}"/>
-                                        </div>
-                                    </div>
-                                    <div class="hr-line-dashed"></div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">门牌号<span
-                                                class="text-danger">*</span></label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="houseNo"
-                                                   value="${user.houseNo}"/>
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
